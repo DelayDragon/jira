@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react"
+
 export const isFalsy = (value) => value === 0 ? false : !value
 
 export const cleanObject = (object)=>{
@@ -9,4 +11,23 @@ export const cleanObject = (object)=>{
         }
     })
     return result
+}
+
+export const useMount = (callback)=>{
+    useEffect(() => {
+        callback()
+    }, [])
+}
+//防抖hooks
+export const useDebounce = (value, delay) => {
+     const [debounceValue, setDebounceValue] = useState(value)
+
+     useEffect(()=>{
+        //每次在value变化以后，设置一个定时器
+        const timeout = setTimeout(()=>setDebounceValue(value),delay)
+        //每次在上一个useEffect处理完再运行
+        return () => clearTimeout(timeout)
+     }, [value, delay])
+
+     return debounceValue
 }
