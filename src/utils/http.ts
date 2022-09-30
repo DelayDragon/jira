@@ -43,5 +43,50 @@ export const http = async (endpoint : string, {data, token, headers, ...customCo
 
 export const useHttp = () =>{
     const {user} = useAuth()
+    //utility types
     return (...[endpoint, config] : Parameters<typeof http>) =>http(endpoint, {...config, token: user?.token})
 }
+
+//联合类型 interface 在这种情况下没法替代type
+// let a : string | number
+
+//类型别名 
+// type b = string | number
+// let bb : b = 6
+
+//interface也没法实现utility type
+
+// JS中的typeof是在runtime时运行的；
+// TS中的typeof，实在静态环境运行的；
+
+// type Person = {
+//     name: string,
+//     age: number
+// }
+//Partial把变量属性变为可选的；
+// const person1: Partial<Person> = {}
+//Omit传进两个参数，第一个为需要修改的type，第二个是要删除的属性，可以是联合类型
+// const person2: Omit<Person, 'name'> = {age:2}
+// const person3: Omit<Person, 'name' | 'age'> = {}
+
+// Partial的实现
+// type Partial<T> = {
+// 传进的T类型，遍历出来，把所有的键都变成了可选的
+//     [P in keyof T]? : T[P]
+// }
+
+// Pick的实现
+// 在传进的类型中挑选一些键来形成新的类型
+// T为传进的类型，K必须为T中的键值
+// type Pick<T, K extents keyof T> = {
+//     [P in K] : T[P]
+// }
+
+//Exclude的实现
+// 相当于遍历，把T联合类型中的所有键比较U，相同则删去键，否则返回
+// type Exclude<T, U> = T extends U ? never : T;
+
+// Omit的实现
+// Omit传进两个参数，第一个为需要修改的type，第二个是要删除的属性，可以是联合类型
+// type Omit<T, K extend keyof any>  
+//      =Pick<T, Exclude<keyof T, K>>
