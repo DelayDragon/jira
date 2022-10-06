@@ -4,28 +4,26 @@ import { useAuth } from "context/auth-context"
 import React from "react"
 import {ReactComponent as SoftwareLgon } from '../src/assets/Jira Software-blue.svg'
 import { ProjectListScreen } from "screens/project-list"
-import { Dropdown, Menu } from "antd"
+import { Button, Dropdown, Menu } from "antd"
 
 export const AuthenticatedApp = () =>{
     const {logout, user} = useAuth()
     return <Container>
         <Header between={true}>
             <HeaderLeft gap={true}>
-                {/* <h3>logo</h3> */}
-                <SoftwareLgon width={'18rem'} color={"rgb(38, 132, 255)"}/>
+                <SoftwareLgon width={'18rem'} color={"rgba(38, 132, 255)"}/>
                 <h3>项目</h3>
                 <h3>用户</h3>
             </HeaderLeft>
             <HeaderRight>
-                {/* <button onClick={logout}>登出</button> */}
                 <Dropdown overlay={<Menu>
                     <Menu.Item key={'logout'}>
-                        <a onClick={logout}>登出</a>
+                        <Button onClick={logout} type={'link'}>登出</Button>
                     </Menu.Item>
                 </Menu>}>
-                    <a onClick={e => e.preventDefault()}>
+                    <Button href="" onClick={e => e.preventDefault()}>
                         Hi, {user?.name}
-                    </a>
+                    </Button>
                 </Dropdown>
             </HeaderRight>
         </Header>

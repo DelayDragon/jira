@@ -2,13 +2,13 @@ import { useEffect, useState } from "react"
 
 export const isFalsy = (value: unknown) => value === 0 ? false : !value
 
-export const cleanObject = (object: Object)=>{
+export const idVoid = (value:unknown) => value === undefined || value === null || value === ''
+
+export const cleanObject = (object: {[key: string]: unknown})=>{
     const result = {...object}
     Object.keys(result).forEach(key => {
-        // @ts-ignore
         const value = result[key]
-        if(isFalsy(value)){
-                    // @ts-ignore
+        if(idVoid(value)){
             delete result[key]
         }
     })
@@ -18,6 +18,7 @@ export const cleanObject = (object: Object)=>{
 export const useMount = (callback: () => void)=>{
     useEffect(() => {
         callback()
+        // TODO 依赖项加上callback会造成无限循环，这个和useCallback和useMemo有关
     }, [])
 }
 //防抖hooks
