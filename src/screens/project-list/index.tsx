@@ -6,6 +6,7 @@ import { SearchPanel } from "./search-panel"
 import { cleanObject, useDebounce, useMount } from 'utils'
 import { useHttp } from 'utils/http'
 import styled from '@emotion/styled'
+import { Typography } from 'antd'
 
 const apiUrl = process.env.REACT_APP_API_URL
 
@@ -18,9 +19,19 @@ export const ProjectListScreen = ()=>{
     const [list, setList] = useState([])
     const [users, setUsers] = useState([])
     const client = useHttp()
+    const [isLoading, setIsLoading] = useState(false)
+    const [error, setError] = useState<null | Error>(null)
 
     useEffect(()=>{
-        client('projects',{data: cleanObject(debounceParam)}).then(setList)
+        setIsLoading(true)
+        client('projects',{data: cleanObject(debounceParam)})
+        .then(setList)
+        .catch(error =>{
+            setList([])
+            setError(error)
+
+        })
+        .finally(()=>setIsLoading(false))
     }, [debounceParam])
 
     useMount(()=>{
@@ -29,7 +40,8 @@ export const ProjectListScreen = ()=>{
     return <Container>
         <h1>项目列表</h1>
         <SearchPanel param={param} setParam={setParam} users={users}></SearchPanel>
-        <List list={list} users={users}></List>
+        {error ? <Typography.Text type={'danger'}>{error.message}</Typography.Text> : null}
+        <List loading={isLoading} dataSource={list} users={users}></List>
     </Container>
 }
 
