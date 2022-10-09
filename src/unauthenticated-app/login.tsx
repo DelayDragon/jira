@@ -2,11 +2,13 @@ import { useAuth } from "context/auth-context";
 import React, { FormEvent } from "react";
 import { Form,Input, Button } from "antd";
 import { LongButton } from "unauthenticated-app";
+import { useAsync } from "utils/use-async";
 
 const apiUrl = process.env.REACT_APP_API_URL
 
-export const LoginScreen = () => {
+export const LoginScreen = ({onError}:{onError:(error: Error)=> void}) => {
     const {login, user} = useAuth()
+    const {run, isLoading} = useAsync()
     // const handleSubmit = (event: FormEvent<HTMLFormElement>)=>{
     //     event.preventDefault()
     //     const username = (event.currentTarget.elements[0] as HTMLInputElement).value
@@ -15,8 +17,12 @@ export const LoginScreen = () => {
     //     // console.log('success');
     // } 
 
-    const handleSubmit = (values:{username: string, password: string}) =>{
-        login(values)
+    const handleSubmit = async (values:{username: string, password: string}) =>{
+        try{
+            await run(login(values))
+        }catch(e:any){
+            onError(e)
+        }
     }
     return (
     <Form onFinish={handleSubmit}>
@@ -39,6 +45,6 @@ export const LoginScreen = () => {
             {/* <label htmlFor="password">密码</label> */}
             <Input placeholder={'密码'} type="password" id={'password'} />
         </Form.Item>
-        <LongButton type={'primary'} htmlType={'submit'}>登录</LongButton>
+        <LongButton loading={isLoading} type={'primary'} htmlType={'submit'}>登录</LongButton>
     </Form>)
 }

@@ -5,7 +5,7 @@ import { LongButton } from "unauthenticated-app";
 
 const apiUrl = process.env.REACT_APP_API_URL
 
-export const RegisterScreen = () => {
+export const RegisterScreen = ({onError}:{onError:(error: Error)=> void}) => {
     const {register, user} = useAuth()
     // const handleSubmit = (event: FormEvent<HTMLFormElement>)=>{
     //     event.preventDefault()
@@ -15,8 +15,16 @@ export const RegisterScreen = () => {
     //     // console.log('success');
         
     // } 
-    const handleSubmit = (values: {username: string, password:string}) =>{
-        register(values)
+    const handleSubmit = async ({cpassword, ...values}: {username: string, password:string, cpassword: string}) =>{
+        if(cpassword !== values.password){
+            onError(new Error('请确认两次输入的密码相同'))
+            return
+        }
+        try{
+            await register(values)
+        }catch(e:any){
+            onError(e)
+        }
     }
     return (
         <Form onFinish={handleSubmit}>
@@ -36,8 +44,14 @@ export const RegisterScreen = () => {
                 message:'请输入密码'
             }
             ]}>
-                {/* <label htmlFor="password">密码</label> */}
                 <Input placeholder={'密码'} type="password" id={'password'} />
+            </Form.Item>
+            <Form.Item name={'cpassword'} rules={[{
+                required:true,
+                message:'请确认密码'
+            }
+            ]}>
+                <Input placeholder={'确认密码'} type="password" id={'cpassword'} />
             </Form.Item>
             <LongButton type={'primary'} htmlType={'submit'}>注册</LongButton>
         </Form>)

@@ -40,8 +40,9 @@ export const useAsync = <D>(initialState?: State<D>) => {
                 return data
             })
             .catch(error => {
+                //catch消化异常，如果不主动抛出异常，外面时接收不到异常的
                 setError(error)
-                return error
+                return Promise.reject(error)
             })
     }
 
