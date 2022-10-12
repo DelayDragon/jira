@@ -2,11 +2,13 @@ import { useAuth } from "context/auth-context";
 import React, { FormEvent } from "react";
 import {Form, Input, Button} from 'antd'
 import { LongButton } from "unauthenticated-app";
+import { useAsync } from "utils/use-async";
 
 const apiUrl = process.env.REACT_APP_API_URL
 
 export const RegisterScreen = ({onError}:{onError:(error: Error)=> void}) => {
     const {register, user} = useAuth()
+    const {run, isLoading} = useAsync()
     // const handleSubmit = (event: FormEvent<HTMLFormElement>)=>{
     //     event.preventDefault()
     //     const username = (event.currentTarget.elements[0] as HTMLInputElement).value
@@ -21,7 +23,7 @@ export const RegisterScreen = ({onError}:{onError:(error: Error)=> void}) => {
             return
         }
         try{
-            await register(values)
+            await run(register(values))
         }catch(e:any){
             onError(e)
         }
@@ -53,6 +55,6 @@ export const RegisterScreen = ({onError}:{onError:(error: Error)=> void}) => {
             ]}>
                 <Input placeholder={'确认密码'} type="password" id={'cpassword'} />
             </Form.Item>
-            <LongButton type={'primary'} htmlType={'submit'}>注册</LongButton>
+            <LongButton loading={isLoading} type={'primary'} htmlType={'submit'}>注册</LongButton>
         </Form>)
 }
