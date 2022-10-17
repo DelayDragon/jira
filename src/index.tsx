@@ -1,3 +1,4 @@
+import './wdyr'
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
@@ -16,7 +17,6 @@ loadDevTools(() => {
       <AppProviders>
         <App />
       </AppProviders>
-
     </React.StrictMode>
   )
 })
