@@ -11,6 +11,7 @@ import { Typography } from 'antd'
 import { useAsync } from 'utils/use-async'
 import { useProjects } from 'utils/project'
 import { useUsers } from 'utils/user'
+import { useUrlQueryParam } from 'utils/url'
 // import { Helmet } from 'react-helmet'
 
 const apiUrl = process.env.REACT_APP_API_URL
@@ -21,11 +22,15 @@ export const ProjectListScreen = ()=>{
         name:'',
         personId:''
     })
-    const debounceParam = useDebounce(param, 500)
+    // const param = useUrlQueryParam(['name', 'personId'])
+    const debounceParam = useDebounce(param, 200)
     const { isLoading, error, data: list} = useProjects(debounceParam)
     const {data: users} = useUsers()
 
     useDocumentTitle('项目列表', false)
+
+    console.log(useUrlQueryParam(['name']));
+    
 
     return <Container>
         {/* 方案一
