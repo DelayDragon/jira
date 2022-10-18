@@ -12,6 +12,7 @@ import { useAsync } from 'utils/use-async'
 import { useProjects } from 'utils/project'
 import { useUsers } from 'utils/user'
 import { useUrlQueryParam } from 'utils/url'
+import { useProjectsSearchParams } from './util'
 // import { Helmet } from 'react-helmet'
 
 const apiUrl = process.env.REACT_APP_API_URL
@@ -19,9 +20,8 @@ const apiUrl = process.env.REACT_APP_API_URL
 
 export const ProjectListScreen = ()=>{
     // const [keys, setKeys] = useState<('name' | 'personId')[]>(['name', 'personId'])
-    const [param, setParam] = useUrlQueryParam(['name', 'personId'])
-    const debounceParam = useDebounce(param, 200)
-    const { isLoading, error, data: list} = useProjects(debounceParam)
+    const [param, setParam] = useProjectsSearchParams()
+    const { isLoading, error, data: list} = useProjects(useDebounce(param, 200))
     const {data: users} = useUsers()
 
     useDocumentTitle('项目列表', false)
