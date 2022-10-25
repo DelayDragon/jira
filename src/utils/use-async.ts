@@ -6,7 +6,6 @@ interface State<D> {
     stat: 'idle' | 'loading' | 'error' | 'success';
 }
 
-
 const defaultConfig: State<null> ={
     stat:'idle',
     data:null,
@@ -25,6 +24,9 @@ export const useAsync = <D>(initialState?: State<D>, initialConfig?: typeof defa
         ...defaultInitialState,
         ...initialState
     })
+    const [retry, setRetry] = useState(() =>{
+
+    })
 
     const setData = (data: D) => setState({
         data,
@@ -41,6 +43,7 @@ export const useAsync = <D>(initialState?: State<D>, initialConfig?: typeof defa
         if (!promise || !promise.then) {
             throw new Error('请传入Promise类型数据')
         }
+        // setRetry(()=>run(promise))
         setState({ ...state, stat: 'loading' })
         return promise
             .then(data => {
@@ -55,6 +58,10 @@ export const useAsync = <D>(initialState?: State<D>, initialConfig?: typeof defa
             })
     }
 
+    // const retry = () => {
+    //     run(oldPromise)
+    // }
+
     return {
         isIdle: state.stat === 'idle',
         isLoading: state.stat === 'loading',
@@ -63,6 +70,8 @@ export const useAsync = <D>(initialState?: State<D>, initialConfig?: typeof defa
         run,
         setData,
         setError,
+        //retry被调用时，重新调用run，让state重新刷新一遍
+        retry,
         ...state
 
     }

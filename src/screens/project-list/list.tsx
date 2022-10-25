@@ -23,7 +23,9 @@ interface ListProps extends TableProps<Project> {
 
 export const List = ({ users, ...props }: ListProps) => {
     const { mutate } = useEditProject()
-    const pinProject = (id: number, pin: boolean)=>mutate({id, pin})
+    // const pinProject = (id: number, pin: boolean)=>mutate({id, pin})
+    const pinProject = (id: number) => (pin: boolean) => mutate({id, pin}).then()
+
     return <Table
         rowKey={'id'}
         pagination={false}
@@ -31,7 +33,9 @@ export const List = ({ users, ...props }: ListProps) => {
             {
                 title: <Pin checked={true} disabled={true}></Pin>,
                 render(value, project) {
-                    return <Pin checked={project.pin} onCheckedChange={pin => pinProject(project.id, pin)}></Pin>
+                    // return <Pin checked={project.pin} onCheckedChange={pin => pinProject(project.id, pin)}></Pin>
+                    return <Pin checked={project.pin} onCheckedChange={pinProject(project.id)}></Pin>
+
                 }
             },
             {
