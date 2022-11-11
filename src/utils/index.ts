@@ -67,3 +67,26 @@ export const useDocumentTitle = (title: string, keepOnmount: boolean = true) => 
 export const resetRoute= ()=>{
     window.location.href = window.location.origin
 }
+
+export const subset = <O extends {[key in string]: unknown}, K extends keyof O>(
+    obj: O,
+    keys: K[]
+) => {
+    const filteredEntries = Object.entries(obj).filter(([key]) => {
+        return keys.includes(key as K)
+    });
+    return Object.fromEntries(filteredEntries) as Pick<O, K>
+};
+
+// 用来返回组件的加载状态，如果还没挂载或者已经卸载，返回false，反之返回true
+export const useMountedRef = () => {
+    const mountedRef = useRef(false)
+
+    useEffect(()=>{
+        mountedRef.current = true
+        return () => {
+            mountedRef.current = false
+        }
+    })
+    return mountedRef
+}
