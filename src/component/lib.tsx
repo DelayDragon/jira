@@ -1,12 +1,15 @@
 import styled from "@emotion/styled";
 import React from "react";
-import { Spin, Typography } from "antd";
+import { Button, Spin, Typography } from "antd";
 
 const FullPage = styled.div`
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+`
+export const ButtonNoPadding = styled(Button)`
+    padding: 0;
 `
 
 export const FullPageLoading = () => <FullPage>
@@ -37,4 +40,6 @@ export const Row = styled.div<{
       ? "2rem"
       : undefined};
   }
-  `;
+  `
+
+
