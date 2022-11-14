@@ -42,7 +42,7 @@ export const AuthenticatedApp = () => {
                                         type={'link'}
                                         onClick={() => setProjectModalOpen(true)}
                                     >
-                                        编辑
+                                        创建项目
                                     </ButtonNoPadding>
                                 } />}>
                     </Route>
