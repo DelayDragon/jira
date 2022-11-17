@@ -1,19 +1,16 @@
 import React from 'react'
 import * as qs from "qs"
 import { List } from "./list"
-import { useEffect, useState } from "react"
 import { SearchPanel } from "./search-panel"
-import { Project } from '../project-list/list.js'
 import { cleanObject, useDebounce, useDocumentTitle, useMount } from 'utils'
-import { useHttp } from 'utils/http'
 import styled from '@emotion/styled'
-import { Button, Typography } from 'antd'
-import { useAsync } from 'utils/use-async'
+import { Typography } from 'antd'
 import { useProjects } from 'utils/project'
 import { useUsers } from 'utils/user'
-import { useUrlQueryParam } from 'utils/url'
 import { useProjectsSearchParams } from './util'
-import { Row } from 'component/lib'
+import { ButtonNoPadding, Row } from 'component/lib'
+import { useDispatch } from 'react-redux'
+import { projectListActions } from './project-list.slice'
 // import { Helmet } from 'react-helmet'
 
 const apiUrl = process.env.REACT_APP_API_URL
@@ -26,6 +23,7 @@ export const ProjectListScreen = (props: { projectButton: JSX.Element}) => {
     const { data: users } = useUsers()
 
     useDocumentTitle('项目列表', false)
+    const dispatch = useDispatch()
 
     // console.log(useUrlQueryParam(['name']));
 
@@ -37,7 +35,13 @@ export const ProjectListScreen = (props: { projectButton: JSX.Element}) => {
         </Helmet> */}
         <Row between={true}>
             <h1>项目列表</h1>
-            {props.projectButton}
+            {/* {props.projectButton} */}
+            <ButtonNoPadding
+                onClick={() => dispatch(projectListActions.openProjectModal())}
+                type={'link'}
+            >
+                创建项目
+            </ButtonNoPadding>
         </Row>
         {/* <Button onClick={retry}>retry</Button> */}
         <SearchPanel param={param} setParam={setParam} users={users || []}></SearchPanel>

@@ -11,13 +11,18 @@ import { ProjectScreen } from "screens/project"
 import { resetRoute } from "utils"
 import { ProjectModal } from "screens/project-list/project-modal"
 import { ProjectPopover } from "component/project-popover"
+import { useDispatch } from "react-redux"
+import { projectListActions } from "screens/project-list/project-list.slice"
 
 export const AuthenticatedApp = () => {
-    const [projectModalOpen, setProjectModalOpen] = useState(false)
+    // const [projectModalOpen, setProjectModalOpen] = useState(false)
     const value: any = undefined
+    const dispatch = useDispatch()
     return <Container>
-        {/* {value.notExist} */}
-        <PageHeader
+        {/* 使用redux全局状态管理的写法 */}
+        <PageHeader/>
+        {/* component composition的写法 */}
+        {/* <PageHeader
             projectButton={
                 <ButtonNoPadding
                     type={'link'}
@@ -25,7 +30,7 @@ export const AuthenticatedApp = () => {
                 >
                     创建项目
                 </ButtonNoPadding>
-            } />
+            } /> */}
 
         <Main>
             {/* <Button onClick={()=>setProjectModalOpen(true)}>打开</Button> */}
@@ -40,7 +45,7 @@ export const AuthenticatedApp = () => {
                                 projectButton={
                                     <ButtonNoPadding
                                         type={'link'}
-                                        onClick={() => setProjectModalOpen(true)}
+                                        onClick={() => dispatch(projectListActions.openProjectModal())}
                                     >
                                         创建项目
                                     </ButtonNoPadding>
@@ -50,18 +55,20 @@ export const AuthenticatedApp = () => {
                 </Routes>
             </Router>
         </Main>
-        <ProjectModal projectModalOpen={projectModalOpen} onClose={() => setProjectModalOpen(false)} />
+        {/* <ProjectModal projectModalOpen={projectModalOpen} onClose={() => setProjectModalOpen(false)} /> */}
+        <ProjectModal></ProjectModal>
     </Container>
 }
 
-
-const PageHeader = (props: { projectButton: JSX.Element }) => {
+const PageHeader = () => {
+// const PageHeader = (props: { projectButton: JSX.Element }) => {
     return <Header between={true}>
         <HeaderLeft gap={true}>
             <ButtonNoPadding type={'link'} onClick={resetRoute}>
                 <SoftwareLgon width={'18rem'} color={"rgba(38, 132, 255)"} />
             </ButtonNoPadding>
-            <ProjectPopover {...props} />
+            {/* <ProjectPopover {...props} /> */}
+            <ProjectPopover/>
             <span>用户</span>
         </HeaderLeft>
         <HeaderRight>

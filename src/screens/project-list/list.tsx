@@ -1,11 +1,13 @@
 import React from 'react'
 import { User } from './search-panel';
-import { Dropdown, Menu, Table, TableProps } from 'antd'
+import { Button, Dropdown, Menu, Table, TableProps } from 'antd'
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
 import { Pin } from 'component/pin';
 import { useEditProject } from 'utils/project';
 import { ButtonNoPadding } from 'component/lib';
+import { useDispatch } from 'react-redux';
+import { projectListActions } from './project-list.slice';
 
 // TODO 把所有ID都改成number类型
 export interface Project {
@@ -28,6 +30,7 @@ export const List = ({ users, ...props }: ListProps) => {
     const { mutate } = useEditProject()
     // const pinProject = (id: number, pin: boolean)=>mutate({id, pin})
     const pinProject = (id: number) => (pin: boolean) => mutate({id, pin}).then(props.refresh)
+    const dispatch = useDispatch()
 
     return <Table
         rowKey={'id'}
@@ -76,7 +79,8 @@ export const List = ({ users, ...props }: ListProps) => {
                     return <Dropdown overlay={<Menu>
                         <Menu.Item key={"edit"}>
                             {/* <ButtonNoPadding type={'link'} onClick={props.setProjectModalOpen(true)}>编辑</ButtonNoPadding> */}
-                            {props.projectButton}
+                            {/* {props.projectButton} */}
+                            <ButtonNoPadding type={'link'} onClick={() => dispatch(projectListActions.openProjectModal())}>编辑</ButtonNoPadding>
                         </Menu.Item>
                     </Menu>}>
                         <ButtonNoPadding type={'link'}>...</ButtonNoPadding>
