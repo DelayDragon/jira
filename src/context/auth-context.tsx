@@ -31,7 +31,15 @@ AuthContext.displayName = 'AuthContext'
 
 export const AuthProvider = ({children} : {children: ReactNode}) =>{
     // const [user, setUser] = useState<User | null>(null)
-    const {data: user, error, isLoading, isIdle, isError, run, setData: setUser} = useAsync<User | null>()
+    const {
+        data: user, 
+        error, 
+        isLoading, 
+        isIdle, 
+        isError, 
+        run, 
+        setData: setUser
+    } = useAsync<User | null>()
 
     //point free
     const login = (form : AuthForm) => auth.login(form).then(setUser)
