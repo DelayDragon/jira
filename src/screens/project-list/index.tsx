@@ -12,14 +12,16 @@ import { useAsync } from 'utils/use-async'
 import { useProjects } from 'utils/project'
 import { useUsers } from 'utils/user'
 import { useUrlQueryParam } from 'utils/url'
-import { useProjectsSearchParams } from './util'
-import { Row } from 'component/lib'
+import { useProjectModal, useProjectsSearchParams } from './util'
+import { ButtonNoPadding, Row } from 'component/lib'
 // import { Helmet } from 'react-helmet'
 
 const apiUrl = process.env.REACT_APP_API_URL
 
 
-export const ProjectListScreen = (props: { projectButton: JSX.Element}) => {
+// export const ProjectListScreen = (props: { projectButton: JSX.Element}) => {
+export const ProjectListScreen = () => {
+    const {open} = useProjectModal()
     // const [keys, setKeys] = useState<('name' | 'personId')[]>(['name', 'personId'])
     const [param, setParam] = useProjectsSearchParams()
     const { isLoading, error, data: list, retry } = useProjects(useDebounce(param, 200))
@@ -37,13 +39,17 @@ export const ProjectListScreen = (props: { projectButton: JSX.Element}) => {
         </Helmet> */}
         <Row between={true}>
             <h1>项目列表</h1>
-            {props.projectButton}
+            <ButtonNoPadding
+                onClick={open}
+                type={'link'}
+            >创建项目</ButtonNoPadding>
+            {/* {props.projectButton} */}
         </Row>
         {/* <Button onClick={retry}>retry</Button> */}
         <SearchPanel param={param} setParam={setParam} users={users || []}></SearchPanel>
         {error ? <Typography.Text type={'danger'}>{error.message}</Typography.Text> : null}
         <List
-            projectButton={props.projectButton}
+            // projectButton={props.projectButton}
             refresh={retry}
             loading={isLoading}
             dataSource={list || []}
