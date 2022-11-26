@@ -13,7 +13,7 @@ import { useProjects } from 'utils/project'
 import { useUsers } from 'utils/user'
 import { useUrlQueryParam } from 'utils/url'
 import { useProjectModal, useProjectsSearchParams } from './util'
-import { ButtonNoPadding, Row } from 'component/lib'
+import { ButtonNoPadding, ErrorBox, Row } from 'component/lib'
 // import { Helmet } from 'react-helmet'
 
 const apiUrl = process.env.REACT_APP_API_URL
@@ -24,7 +24,7 @@ export const ProjectListScreen = () => {
     const {open} = useProjectModal()
     // const [keys, setKeys] = useState<('name' | 'personId')[]>(['name', 'personId'])
     const [param, setParam] = useProjectsSearchParams()
-    const { isLoading, error, data: list, retry } = useProjects(useDebounce(param, 200))
+    const { isLoading, error, data: list} = useProjects(useDebounce(param, 200))
     const { data: users } = useUsers()
 
     useDocumentTitle('项目列表', false)
@@ -47,10 +47,11 @@ export const ProjectListScreen = () => {
         </Row>
         {/* <Button onClick={retry}>retry</Button> */}
         <SearchPanel param={param} setParam={setParam} users={users || []}></SearchPanel>
-        {error ? <Typography.Text type={'danger'}>{error.message}</Typography.Text> : null}
+        {/* {error ? <Typography.Text type={'danger'}>{error.message}</Typography.Text> : null} */}
+        <ErrorBox error={error}/>
         <List
             // projectButton={props.projectButton}
-            refresh={retry}
+            // refresh={retry}
             loading={isLoading}
             dataSource={list || []}
             users={users || []}>

@@ -8,18 +8,21 @@ import { AuthenticatedApp } from 'authenticated-app';
 import { UnauthenticatedApp } from 'unauthenticated-app';
 import {ErrorBoundary} from 'component/error-boundary';
 import { FullPageErrorFallback } from 'component/lib';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 
 function App() {
   const {user} = useAuth()
+  const queryClient = new QueryClient()
   return (
     <div className="App">
+      <QueryClientProvider client={queryClient}>
       <ErrorBoundary fallbackRender={FullPageErrorFallback}>
         {user ? <AuthenticatedApp/> : <UnauthenticatedApp/>}
       </ErrorBoundary>
       {/* <ProjectListScreen></ProjectListScreen> */}
       {/* <LoginScreen></LoginScreen> */}
-
+      </QueryClientProvider>
     </div>
   );
 }
