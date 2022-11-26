@@ -7,7 +7,7 @@ import { useAsync } from "utils/use-async";
 import { FullPageErrorFallback, FullPageLoading } from "component/lib";
 import * as authStore from "store/auth.slice"
 import { useDispatch } from "react-redux";
-import { useAppDispatch } from "hook";
+import { useAppDispatch } from "hooks";
 import { useSelector } from "react-redux";
 
 export interface AuthForm{
