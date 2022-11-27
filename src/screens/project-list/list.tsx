@@ -26,11 +26,14 @@ interface ListProps extends TableProps<Project> {
 
 
 export const List = ({ users, ...props }: ListProps) => {
-    const {open} = useProjectModal()
+    const { open } = useProjectModal()
     const { mutate } = useEditProject()
     // const pinProject = (id: number, pin: boolean)=>mutate({id, pin})
     // const pinProject = (id: number) => (pin: boolean) => mutate({id, pin}).then(props.refresh)
-    const pinProject = (id: number) => (pin: boolean)=>mutate({id, pin})
+    const pinProject = (id: number) => (pin: boolean) => mutate({ id, pin })
+
+    const {startEdit} = useProjectModal()
+    const editProject = (id: number) => () => startEdit(id)
 
     return <Table
         rowKey={'id'}
@@ -75,13 +78,18 @@ export const List = ({ users, ...props }: ListProps) => {
                 }
             },
             {
-                render(value, project){
-                    return <Dropdown overlay={<Menu>
-                        <Menu.Item key={"edit"}>
-                            <ButtonNoPadding type={'link'} onClick={open}>编辑</ButtonNoPadding>
-                            {/* {props.projectButton} */}
-                        </Menu.Item>
-                    </Menu>}>
+                render(value, project) {
+                    return <Dropdown overlay={
+                        <Menu>
+                            <Menu.Item key={"edit"} onClick={editProject(project.id)}>
+                                {/* <ButtonNoPadding type={'link'} onClick={open}>编辑</ButtonNoPadding> */}
+                                {/* {props.projectButton} */}
+                                编辑
+                            </Menu.Item>
+                            <Menu.Item key={"delete"}>
+                                删除
+                            </Menu.Item>
+                        </Menu>}>
                         <ButtonNoPadding type={'link'}>...</ButtonNoPadding>
                     </Dropdown>
                 }

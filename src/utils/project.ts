@@ -9,6 +9,7 @@ export const useProjects = (param?: Partial<Project>) => {
     const client = useHttp()
 
     return useQuery<Project[]>(['projects', param], () => client('projects', { data: param }))
+
     // const {run, ...result} = useAsync<Project[]>()
 
     // const fetchProjects = useCallback(() => client('projects',{data: cleanObject(param || {})}), [param, client])
@@ -54,7 +55,7 @@ export const useAddProject = () => {
     const queryClient = useQueryClient()
 
     return useMutation(
-        (params: Partial<Project>) => client(`projects/${params.id}`,{
+        (params: Partial<Project>) => client(`projects`,{
             data: params,
             method: 'POST'
         }),{
@@ -75,4 +76,16 @@ export const useAddProject = () => {
     //     mutate,
     //     ...asyncResult
     // }
+}
+
+export const useProject = (id?: number) => {
+    const client = useHttp()
+
+    return useQuery<Project>(
+        ['project', {id}],
+        () => client(`projects/${id}`),
+        {
+            enabled:!!id
+        }
+    )
 }
