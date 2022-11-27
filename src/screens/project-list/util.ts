@@ -25,7 +25,9 @@ export const useProjectModal = () => {
     }
     const close = () => {
         setProjectCreate({projectCreate: undefined})
-        setEditingProjectId({editingProjectId: undefined})
+        if(editingProjectId){
+            setEditingProjectId({editingProjectId : undefined} )
+        }
     }
     const startEdit = (id : number) => setEditingProjectId({editingProjectId: id})
 
@@ -36,7 +38,7 @@ export const useProjectModal = () => {
     // ] as const 
 
     return {
-        projectModalOpen: projectCreate === 'true' || Boolean(editingProject),
+        projectModalOpen:(projectCreate === 'true' || Boolean(editingProject)),
         open,
         close,
         startEdit,

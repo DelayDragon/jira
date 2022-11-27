@@ -30,7 +30,7 @@ export const ProjectModal = () => {
     return <Drawer
         forceRender={true}
         onClose={() => {
-            console.log(1)
+            form.resetFields()
             close()
         }}
         visible={projectModalOpen}

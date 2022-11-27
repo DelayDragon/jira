@@ -28,12 +28,10 @@ export const useEditProject = () => {
         (params: Partial<Project>) => client(`projects/${params.id}`, {
             method: 'PATCH',
             data: params
-        })
-        , {
+        }), {
             onSuccess: () => queryClient.invalidateQueries('projects')
         }
     )
-
 
     // const {run, ...asyncResult} = useAsync()
     // const client = useHttp()
@@ -49,13 +47,12 @@ export const useEditProject = () => {
     //     ...asyncResult
     // }
 }
-
 export const useAddProject = () => {
     const client = useHttp()
     const queryClient = useQueryClient()
 
     return useMutation(
-        (params: Partial<Project>) => client(`projects`,{
+        (params: Partial<Project>) => client('projects',{
             data: params,
             method: 'POST'
         }),{
