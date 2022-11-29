@@ -1,6 +1,7 @@
 import { useCallback, useEffect } from "react"
 import { useMutation, useQuery, useQueryClient } from "react-query"
 import { Project } from "screens/project-list/list"
+import { useProjectsSearchParams } from "screens/project-list/util"
 import { cleanObject } from "utils"
 import { useHttp } from "./http"
 import { useAsync } from "./use-async"
@@ -24,6 +25,8 @@ export const useProjects = (param?: Partial<Project>) => {
 export const useEditProject = () => {
     const client = useHttp()
     const queryClient = useQueryClient()
+    const [searchParams] = useProjectsSearchParams()
+    const queryKey = ['projects', searchParams]
     return useMutation(
         (params: Partial<Project>) => client(`projects/${params.id}`, {
             method: 'PATCH',
@@ -33,6 +36,18 @@ export const useEditProject = () => {
         onSuccess: () => {
             queryClient.invalidateQueries('projects')
             console.log('edit');
+        },
+        async onMutate(target: Partial<Project>) {
+            const previousItems = queryClient.getQueryData(queryKey)
+            queryClient.setQueryData(queryKey, (old?: Project[]) => {
+                return old?.map(project => project.id === target.id ? { ...project, ...target } : project) || []
+            })
+            return { previousItems }
+        },
+        onError(error: Error, newItem: Partial<Project>, context: any) {
+            // queryClient.setQueryData(queryKey, context.previousItems)
+            queryClient.setQueryData(queryKey, (context as { previousItems: Project[] }).previousItems)
+
         }
     }
     )

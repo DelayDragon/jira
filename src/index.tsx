@@ -3,25 +3,28 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { loadServer,DevTools } from 'jira-dev-tool';
+import { loadServer, DevTools } from 'jira-dev-tool';
 import 'antd/dist/antd.less'
-import {AppProviders} from 'context'
-
+import { AppProviders } from 'context'
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 
 
 
 loadServer(() => {
+  const queryClient = new QueryClient()
   const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
   );
   root.render(
-    <React.StrictMode>
-      <AppProviders>
-        <App />
-        <DevTools/>
-      </AppProviders>
-    </React.StrictMode>
+    <QueryClientProvider client={queryClient}>
+      <React.StrictMode>
+        <AppProviders>
+          <App />
+          <DevTools />
+        </AppProviders>
+      </React.StrictMode>
+    </QueryClientProvider>
   )
 })
 
