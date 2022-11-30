@@ -1,6 +1,6 @@
 import { Select } from "antd";
 import React from "react";
-import { Raw } from "type";
+import { Raw } from "types";
 
 
 type SelectProps = React.ComponentProps<typeof Select>

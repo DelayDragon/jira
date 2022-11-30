@@ -3,7 +3,7 @@ import { Button, Drawer, Form, Input, Spin } from 'antd'
 import { useForm } from 'antd/lib/form/Form'
 import { ErrorBox } from 'component/lib'
 import { UserSelect } from 'component/user-select'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useAddProject, useEditProject } from 'utils/project'
 import { useProjectModal, useProjectQueryKey } from './util'
 

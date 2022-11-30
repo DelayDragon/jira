@@ -3,7 +3,7 @@ import * as qs from "qs"
 import { List } from "./list"
 import { useEffect, useState } from "react"
 import { SearchPanel } from "./search-panel"
-import { Project } from '../project-list/list.js'
+import { Project } from "../../types/Project"
 import { cleanObject, useDebounce, useDocumentTitle, useMount } from 'utils'
 import { useHttp } from 'utils/http'
 import styled from '@emotion/styled'
