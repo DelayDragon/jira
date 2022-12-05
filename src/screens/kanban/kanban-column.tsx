@@ -20,7 +20,7 @@ const TaskTypeIcon = ({ id }: { id: number }) => {
 
 export const KanbanColumn = ({ kanban }: { kanban: Kanban }) => {
     // const {data: allTasks} = useTasks(useTasksSearchParams())
-    const { data: allTasks } = useTasks()
+    const { data: allTasks } = useTasks(useTasksSearchParams())
 
     const tasks = allTasks?.filter(task => task.kanbanId === kanban.id)
     return <Container>
