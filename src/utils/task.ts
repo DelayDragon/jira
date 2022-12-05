@@ -7,7 +7,7 @@ export const useTasks = (param?: Partial<Task>) => {
     const client = useHttp()
 
     return useQuery<Task[]>(
-        ['Tasks', param],
-        () => client('kanbans', { data: param })
+        ['tasks', param],
+        () => client('tasks', { data: param })
     )
 }
