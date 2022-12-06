@@ -31,6 +31,13 @@ export const FullPageErrorFallback = ({ error }: { error: Error | null }) => <Fu
     <ErrorBox error={error}/>
 </FullPage>
 
+export const ScreenContainer = styled.div`
+    padding: 3.2rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+`
+
 export const Row = styled.div<{
     gap?: number | boolean;
     between?: Boolean;
@@ -51,6 +58,7 @@ export const Row = styled.div<{
                 : undefined};
   }
 `;
+
 
 
 

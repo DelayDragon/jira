@@ -1,11 +1,13 @@
 import { Kanban } from "types/kanban";
 import { useTasks } from "utils/task";
 import { useTaskTypes } from "utils/task-type";
-import { useTasksSearchParams } from "./util";
+import { useTasksModal, useTasksSearchParams } from "./util";
 import taskIcon from 'assets/task.svg'
 import bugIcon from 'assets/bug.svg'
 import styled from "@emotion/styled";
 import { Card } from "antd";
+import { Row } from "component/lib";
+import { CreateTask } from "./create-task";
 
 
 const TaskTypeIcon = ({ id }: { id: number }) => {
@@ -15,7 +17,7 @@ const TaskTypeIcon = ({ id }: { id: number }) => {
     if (!name) {
         return null
     }
-    return <img style={{ width: "2rem", height: 'auto' }} src={name === 'task' ? taskIcon : bugIcon} />
+    return <img alt={'task-icon'} style={{ width: "2rem", height: 'auto' }} src={name === 'task' ? taskIcon : bugIcon} />
 }
 
 export const KanbanColumn = ({ kanban }: { kanban: Kanban }) => {
@@ -23,23 +25,30 @@ export const KanbanColumn = ({ kanban }: { kanban: Kanban }) => {
     const { data: allTasks } = useTasks(useTasksSearchParams())
 
     const tasks = allTasks?.filter(task => task.kanbanId === kanban.id)
+
+    const { startEdit } = useTasksModal()
     return <Container>
-        <h3>{kanban.name}</h3>
+        <Row between={true}>
+            <h3>{kanban.name}</h3>
+        </Row>
         <TaskContainer>
             {
                 tasks?.map(task =>
-                    <Card style={{ marginBottom: '0.5rem' }} key={task.id}>
+                    <Card onClick={() => startEdit(task.id)} style={{ marginBottom: '0.5rem', cursor: 'pointer'}} key={task.id}>
                         {task.name}
                         <TaskTypeIcon id={task.typeId} />
                     </Card>)
             }
+            <CreateTask kanbanId={kanban.id}></CreateTask>
         </TaskContainer>
     </Container>
 }
 
-const Container = styled.div`
+export const Container = styled.div`
     min-width:27rem;
-    border-radius: 1.6rem;
+    min-height: 50rem;
+    overflow: scroll;
+    border-radius: 0.6rem;
     background-color: rgb(244,245,247);
     display: flex;
     flex-direction: column;
