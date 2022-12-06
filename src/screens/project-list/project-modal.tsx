@@ -34,7 +34,7 @@ export const ProjectModal = () => {
     return <Drawer
         forceRender={true}
         onClose={closeModal}
-        visible={projectModalOpen}
+        open={projectModalOpen}
         width={"100%"}
     >
         <Container>
