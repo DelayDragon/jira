@@ -1,7 +1,7 @@
 import { Input } from "antd"
 import { useState } from "react"
 import { useAddKanban } from "utils/kanban"
-import { ColumnsContainer } from "."
+
 import { Container } from "./kanban-column"
 import { useKanbanQueryKey, useProjectIdInUrl } from "./util"
 
@@ -15,8 +15,7 @@ export const CreateKanban = () => {
         setName('')
     }
 
-    return <ColumnsContainer>
-        <Container>
+    return <Container>
             <Input
                 size={'large'}
                 placeholder={'新建看板名称'}
@@ -25,5 +24,5 @@ export const CreateKanban = () => {
                 onChange={evt => setName(evt.target.value)}
             />
         </Container>
-    </ColumnsContainer>
+
 }

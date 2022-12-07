@@ -46,8 +46,7 @@ export const KanbanColumn = ({ kanban }: { kanban: Kanban }) => {
 
 export const Container = styled.div`
     min-width:27rem;
-    min-height: 50rem;
-    overflow: scroll;
+    height: 50rem;
     border-radius: 0.6rem;
     background-color: rgb(244,245,247);
     display: flex;

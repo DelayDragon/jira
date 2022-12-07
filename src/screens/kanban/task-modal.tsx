@@ -42,6 +42,7 @@ export const TaskModal = () => {
             {...layout}
             initialValues={editingTask}
             form={form}
+            layout={'vertical'}
         >
             <Form.Item label={'任务名'} name={"name"} rules={[{ required: true, message: '请输入任务名' }]} >
                 <Input></Input>

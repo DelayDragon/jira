@@ -49,13 +49,21 @@ export const ProjectListScreen = () => {
         <SearchPanel param={param} setParam={setParam} users={users || []}></SearchPanel>
         {/* {error ? <Typography.Text type={'danger'}>{error.message}</Typography.Text> : null} */}
         <ErrorBox error={error}/>
+        <ListContainer>
         <List
             // projectButton={props.projectButton}
             // refresh={retry}
             loading={isLoading}
+            pagination={{
+                onChange(page){
+                    console.log(page);
+                },
+                pageSize:6
+            }}
             dataSource={list || []}
             users={users || []}>
         </List>
+        </ListContainer>
     </Container>
 }
 
@@ -63,4 +71,13 @@ ProjectListScreen.whyDidYouRender = false
 
 const Container = styled.div`
     padding:3.2rem;
+    /* display: flex; */
+    overflow: hidden;
+`
+
+const ListContainer = styled.div`
+    overflow-y: scroll;
+    ::-webkit-scrollbar{
+        display: none;
+    }
 `
