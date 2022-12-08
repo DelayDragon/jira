@@ -1,6 +1,6 @@
 import { Button, Card, Input } from "antd"
 import { useEffect, useState } from "react"
-import { useAddTask, useTasks } from "utils/task"
+import { useAddTask } from "utils/task"
 import { useProjectIdInUrl, useTasksQueryKey } from "./util"
 
 export const CreateTask = ({ kanbanId }: { kanbanId: number }) => {

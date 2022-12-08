@@ -23,7 +23,7 @@ const TaskTypeIcon = ({ id }: { id: number }) => {
     return <img alt={'task-icon'} style={{ width: "2rem", height: 'auto' }} src={name === 'task' ? taskIcon : bugIcon} />
 }
 
-const TaskCard = ({ task }: { task: Task }) => {
+const TaskCard = ({ task}: { task: Task }) => {
     const { startEdit } = useTasksModal()
     const { name: keyword } = useTasksSearchParams()
     return <Card onClick={() => startEdit(task.id)} style={{ marginBottom: '0.5rem', cursor: 'pointer' }} key={task.id}>
@@ -34,7 +34,6 @@ const TaskCard = ({ task }: { task: Task }) => {
 
 export const KanbanColumn = ({ kanban }: { kanban: Kanban }) => {
     const { data: allTasks } = useTasks(useTasksSearchParams())
-
     const tasks = allTasks?.filter(task => task.kanbanId === kanban.id)
 
 

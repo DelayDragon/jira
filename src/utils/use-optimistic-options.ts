@@ -1,12 +1,11 @@
 import { QueryKey, useQueryClient } from "react-query";
 import { Project } from "types/Project";
 
-export const useConfig = (queryKey: QueryKey,callback: (target:any, old?: any[]) => any[]) => {
+export const useConfig = (queryKey: QueryKey, callback: (target:any, old?: any[]) => any[]) => {
     const queryClient = useQueryClient()
     return {
         onSuccess: () => {
-            queryClient.invalidateQueries(queryKey)
-            console.log('edit');
+            return queryClient.invalidateQueries(queryKey)
         },
         async onMutate(target: any) {
             const previousItems = queryClient.getQueryData(queryKey)
