@@ -108,4 +108,6 @@ const HeaderRight = styled.div`
     
 `
 const Main = styled.main`
+display: flex;
+overflow: hidden;
 `

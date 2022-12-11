@@ -21,10 +21,10 @@ const apiUrl = process.env.REACT_APP_API_URL
 
 // export const ProjectListScreen = (props: { projectButton: JSX.Element}) => {
 export const ProjectListScreen = () => {
-    const {open} = useProjectModal()
+    const { open } = useProjectModal()
     // const [keys, setKeys] = useState<('name' | 'personId')[]>(['name', 'personId'])
     const [param, setParam] = useProjectsSearchParams()
-    const { isLoading, error, data: list} = useProjects(useDebounce(param, 200))
+    const { isLoading, error, data: list } = useProjects(useDebounce(param, 200))
     const { data: users } = useUsers()
 
     useDocumentTitle('项目列表', false)
@@ -48,21 +48,21 @@ export const ProjectListScreen = () => {
         {/* <Button onClick={retry}>retry</Button> */}
         <SearchPanel param={param} setParam={setParam} users={users || []}></SearchPanel>
         {/* {error ? <Typography.Text type={'danger'}>{error.message}</Typography.Text> : null} */}
-        <ErrorBox error={error}/>
+        <ErrorBox error={error} />
         <ListContainer>
-        <List
-            // projectButton={props.projectButton}
-            // refresh={retry}
-            loading={isLoading}
-            pagination={{
-                onChange(page){
-                    console.log(page);
-                },
-                pageSize:6
-            }}
-            dataSource={list || []}
-            users={users || []}>
-        </List>
+            <List
+                // projectButton={props.projectButton}
+                // refresh={retry}
+                loading={isLoading}
+                pagination={{
+                    onChange(page) {
+                        console.log(page);
+                    },
+                    pageSize: 6
+                }}
+                dataSource={list || []}
+                users={users || []}>
+            </List>
         </ListContainer>
     </Container>
 }
@@ -70,9 +70,9 @@ export const ProjectListScreen = () => {
 ProjectListScreen.whyDidYouRender = false
 
 const Container = styled.div`
+    flex:1; 
     padding:3.2rem;
-    /* display: flex; */
-    overflow: hidden;
+    /* overflow: hidden; */
 `
 
 const ListContainer = styled.div`
