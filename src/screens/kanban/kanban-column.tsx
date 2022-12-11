@@ -11,6 +11,7 @@ import { CreateTask } from "./create-task";
 import { Task } from "types/task";
 import { Mark } from "component/mark";
 import { useDeleteKanban } from "utils/kanban";
+import React from "react";
 
 
 const TaskTypeIcon = ({ id }: { id: number }) => {
@@ -40,7 +41,7 @@ export const KanbanColumn = ({ kanban }: { kanban: Kanban }) => {
     return <Container>
         <Row between={true}>
             <h3>{kanban.name}</h3>
-            <More kanban={kanban} />
+            <More kanban={kanban} key={kanban.id}/>
         </Row>
         <TaskContainer>
             {tasks?.map(task => <TaskCard task={task} key={task.id} />)}
@@ -49,8 +50,25 @@ export const KanbanColumn = ({ kanban }: { kanban: Kanban }) => {
     </Container>
 }
 
+// export const KanbanColumn = React.forwardRef<HTMLDivElement, { kanban: Kanban }>(({ kanban, ...props}, ref) => {
+//     const { data: allTasks } = useTasks(useTasksSearchParams())
+//     const tasks = allTasks?.filter(task => task.kanbanId === kanban.id)
+
+//     return <Container {...props} ref={ref}>
+//         <Row between={true}>
+//             <h3>{kanban.name}</h3>
+//             <More kanban={kanban} key={kanban.id}/>
+//         </Row>
+//         <TaskContainer>
+//             {tasks?.map(task => <TaskCard task={task} key={task.id} />)}
+//             <CreateTask kanbanId={kanban.id}></CreateTask>
+//         </TaskContainer>
+//     </Container>
+// })
+
 const More = ({ kanban }: { kanban: Kanban }) => {
     const { mutateAsync } = useDeleteKanban(useKanbanQueryKey())
+
     const startEdit = () => {
         Modal.confirm({
             okText: '确定',
@@ -61,11 +79,13 @@ const More = ({ kanban }: { kanban: Kanban }) => {
             }
         })
     }
+
     const overlay = <Menu>
         <Menu.Item>
             <Button type={'link'} onClick={startEdit}>删除</Button>
         </Menu.Item>
     </Menu>
+
     return <Dropdown overlay={overlay}>
         <Button type={'link'}>......</Button>
     </Dropdown>

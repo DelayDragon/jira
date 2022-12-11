@@ -7,7 +7,7 @@ import { useAddConfig, useDeleteConfig, useEditConfig } from "./use-optimistic-o
 
 export const useTasks = (param?: Partial<Task>) => {
     const client = useHttp()
-    const debouncedParam = {...param, name: useDebounce(param?.name, 1000)}
+    const debouncedParam = {...param, name: useDebounce(param?.name, 500)}
 
     return useQuery<Task[]>(
         ['tasks', debouncedParam],
