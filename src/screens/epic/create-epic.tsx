@@ -1,7 +1,6 @@
 import styled from "@emotion/styled"
 import { Button, Drawer, DrawerProps, Form, Input, Spin } from "antd"
 import { useForm } from "antd/es/form/Form"
-
 import { ErrorBox } from "component/lib"
 import { useEffect } from "react"
 import { useProjectIdInUrl } from "screens/kanban/util"

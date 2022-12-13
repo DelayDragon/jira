@@ -8,11 +8,14 @@ interface State<D> {
     throwOnError?: boolean
 }
 
-const defaultConfig: State<null> ={
-    stat:'idle',
-    data:null,
-    error:null,
+const defaultConfig ={
     throwOnError: false
+}
+
+const defaultInitialState: State<null> = {
+    error: null,
+    data: null,
+    stat: 'idle',
 }
 
 const useSafeDispatch = <T>(dispatch: (...args: T[]) => void) => {
@@ -21,12 +24,7 @@ const useSafeDispatch = <T>(dispatch: (...args: T[]) => void) => {
     return useCallback((...args: T[]) => (mountedRef.current ? dispatch(...args) : void 0), [dispatch, mountedRef])
 }
 
-const defaultInitialState: State<null> = {
-    error: null,
-    data: null,
-    stat: 'idle',
-    throwOnError: false
-}
+
 
 export const useAsync = <D>(initialState?: State<D>, initialConfig?: typeof defaultConfig) => {
     const config = {...defaultConfig, ...initialConfig}
