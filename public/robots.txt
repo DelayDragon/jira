@@ -1,3 +1,4 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
+代指搜索引擎的爬虫，不允许搜索引擎访问什么；
 Disallow:

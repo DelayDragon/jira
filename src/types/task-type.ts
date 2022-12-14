@@ -1,4 +1,4 @@
 export interface TaskType {
-    id: number;
-    name:string;
+  id: number;
+  name: string;
 }

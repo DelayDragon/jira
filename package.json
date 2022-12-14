@@ -37,7 +37,8 @@
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject",
-    "json-server": "json-server __json_server_mock__/db.json --watch --port  5000  --middlewares ./__json_server_mock__/middleware.js"
+    "json-server": "json-server __json_server_mock__/db.json --watch --port  5000  --middlewares ./__json_server_mock__/middleware.js",
+    "prepare": "husky install"
   },
   "eslintConfig": {
     "extends": [
@@ -68,16 +69,11 @@
     "lint-staged": "^13.0.3",
     "msw": "^0.49.1",
     "npm": "^8.19.2",
-    "prettier": "2.7.1",
+    "prettier": "2.8.1",
     "uninstall": "^0.0.0"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
-    "**/*": "prettier --write --ignore-unknown"
+    "*.{js,css,md,ts,tsx}": "prettier --write"
   },
   "msw": {
     "workerDirectory": "public"
