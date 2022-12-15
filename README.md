@@ -1,46 +1,12 @@
-# Getting Started with Create React App
+目前仍未解决的问题
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+1、尝试使用 commitlint，会导致整个项目的依赖发生改变，导致项目不能正常运作；
+初步想法：在项目初期就要事先配置好，以免中后期对项目会有所影响；这个库如今再安装使用貌似会对项目产生较大影响，对于它的尝试使用，将在新的项目中使用；
+2、看板 list 的 react-beautiful-dnd 库的拖拽效果无法实现；
+初步想法：问题出现同样应该是依赖库的问题，看到某些想法可能涉及 emotion 与 react-beautiful-dnd 对 forwordRef 的处理问题；emotion 可能会对 forwordRef 转发进行处理，导致不能 react-beautiful-dnd 不能正常识别；
 
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+1.Trying to use commitlint will change the dependencies of the entire project and cause the project to fail to function properly;
+solution: Configure as much as possible in the initial stage of the project, to avoid it could affect project of the
+later stage; the installation and use of this library now seems to have a great impact on the project, and its trial use will be used in new projects.
+2.The drag-and-drop effect of the react-beautiful-dnd library of Kanban list cannot be realized.
+Preliminary idea: the problem should also be dependent on the library. See that some ideas may involve the handling of forwordRef by emotion and react-beautiful-dnd; emotion may handle forwordRef forwarding, so that the react-beautiful-dnd cannot recognize it properly.
