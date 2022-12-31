@@ -2,14 +2,14 @@ import { useEffect, useRef, useState } from "react";
 
 export const isFalsy = (value: unknown) => (value === 0 ? false : !value);
 
-export const idVoid = (value: unknown) =>
+export const isVoid = (value: unknown) =>
   value === undefined || value === null || value === "";
 
 export const cleanObject = (object: { [key: string]: unknown }) => {
   const result = { ...object };
   Object.keys(result).forEach((key) => {
     const value = result[key];
-    if (idVoid(value)) {
+    if (isVoid(value)) {
       delete result[key];
     }
   });
@@ -22,6 +22,7 @@ export const useMount = (callback: () => void) => {
     // TODO 依赖项加上callback会造成无限循环，这个和useCallback和useMemo有关
   }, []);
 };
+
 //防抖hooks
 export const useDebounce = <V>(value: V, delay?: number) => {
   const [debounceValue, setDebounceValue] = useState(value);
