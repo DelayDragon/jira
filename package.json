@@ -37,7 +37,9 @@
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject",
-    "json-server": "json-server __json_server_mock__/db.json --watch --port  5000  --middlewares ./__json_server_mock__/middleware.js",
+    "predeploy":"npm run build",
+    "deploy": "gh-pages -d build -r git@github.com:DelayDragon/DelayDragon.github.io.git -b main",
+    "json-server": "json-server __json_server_mock__/db.json --watch --port 5000  --middlewares ./__json_server_mock__/middleware.js",
     "prepare": "husky install"
   },
   "eslintConfig": {
@@ -64,6 +66,7 @@
     "@types/react-beautiful-dnd": "^13.1.3",
     "@types/react-helmet": "^6.1.5",
     "eslint-config-prettier": "^8.5.0",
+    "gh-pages": "^5.0.0",
     "husky": "^8.0.1",
     "install": "^0.13.0",
     "lint-staged": "^13.0.3",
