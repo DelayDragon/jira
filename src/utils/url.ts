@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { URLSearchParamsInit, useSearchParams } from "react-router-dom";
 import { cleanObject, subset } from "utils";
 
+// 返回页面url中，指定键的参数值
 export const useUrlQueryParam = <K extends string>(keys: K[]) => {
   const [searchParams, setSearchParam] = useSearchParams();
   const setSearchParams = useSetUrlSearchParams();
@@ -24,6 +25,11 @@ export const useUrlQueryParam = <K extends string>(keys: K[]) => {
     },
   ] as const;
 };
+
+// as const的作用
+/**
+ * 解决一个数组中存在着不同类型的元素,返回数组元素的原始类型
+ */
 
 export const useSetUrlSearchParams = () => {
   const [searchParams, setSearchParams] = useSearchParams();

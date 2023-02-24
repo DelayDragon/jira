@@ -16,6 +16,7 @@ export const cleanObject = (object: { [key: string]: unknown }) => {
   return result;
 };
 
+// 挂载就执行的hook
 export const useMount = (callback: () => void) => {
   useEffect(() => {
     callback();
@@ -51,8 +52,10 @@ export const useArray = <T>(initialArray: T[]) => {
   };
 };
 
+// 改变标题的hook
 export const useDocumentTitle = (
   title: string,
+  // 跳转是否保留标题的判断值
   keepOnmount: boolean = true
 ) => {
   const oldTitle = useRef(document.title).current;
