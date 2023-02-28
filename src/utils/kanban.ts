@@ -3,6 +3,7 @@ import { Kanban } from "types/kanban";
 import { useHttp } from "./http";
 import { useAddConfig, useDeleteConfig } from "./use-optimistic-options";
 
+// 对传入的参数进行拼接到url进行请求
 export const useKanbans = (param?: Partial<Kanban>) => {
   const client = useHttp();
 
@@ -11,6 +12,7 @@ export const useKanbans = (param?: Partial<Kanban>) => {
   );
 };
 
+// 返回一个函数，接收一个params，函数内部发起一个post请求，data是params
 export const useAddKanban = (queryKey: QueryKey) => {
   const client = useHttp();
 
@@ -24,6 +26,7 @@ export const useAddKanban = (queryKey: QueryKey) => {
   );
 };
 
+// 传入一个id，发起delete请求
 export const useDeleteKanban = (queryKey: QueryKey) => {
   const client = useHttp();
 
